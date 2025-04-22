@@ -238,7 +238,7 @@ public class InAppBrowserWebViewController: UIViewController, InAppBrowserDelega
         searchBar.keyboardType = .URL
         searchBar.sizeToFit()
         searchBar.delegate = self
-        navigationItem.titleView = searchBar
+//         navigationItem.titleView = searchBar
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reload))
@@ -367,11 +367,26 @@ public class InAppBrowserWebViewController: UIViewController, InAppBrowserDelega
         closeButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(close))
     }
 
-    public func didChangeTitle(title: String?) {
+     public func didChangeTitle(title: String?) {
         guard let _ = title else {
             return
         }
+        setTitleForOverLay(title: title)
     }
+
+    func setTitleForOverLay(title: String){
+          let label = UILabel()
+          label.font = UIFont.systemFont(ofSize: 16)
+          label.text = title
+          label.textAlignment = .left
+          label.backgroundColor = .clear
+          label.sizeToFit()
+
+          let offsetY = (navigationController?.navigationBar.frame.height ?? 44) / 2 - label.frame.height / 2
+          label.frame.origin.y = offsetY
+
+          navigationItem.titleView = label
+     }
 
     public func didStartNavigation(url: URL?) {
         forwardButton.isEnabled = webView?.canGoForward ?? false
