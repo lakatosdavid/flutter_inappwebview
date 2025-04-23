@@ -368,10 +368,10 @@ public class InAppBrowserWebViewController: UIViewController, InAppBrowserDelega
     }
 
      public func didChangeTitle(title: String?) {
-        guard let _ = title else {
+        guard let webPageTitle = title else {
             return
         }
-        setTitleForOverLay(title: title)
+        setTitleForOverLay(title: webPageTitle)
     }
 
     func setTitleForOverLay(title: String){
